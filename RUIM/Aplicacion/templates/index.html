@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Formulario</title>
+    </head>
+
+    <body>
+        {% if form.is_multipart %}
+        <form action = "/guardar/" method = "post" enctype="multipart/form-data">
+        {% else %}
+        <form action = "/guardar/" method = "post">
+        {% endif %}
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Guardar">
+        </form>
+    </body>
+</html>
