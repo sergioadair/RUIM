@@ -14,6 +14,8 @@ class InputForm(forms.ModelForm):
             'resumen': forms.FileInput(attrs={'accept':'application/vnd.openxmlformats-officedocument.wordprocessingml.document'})
         }
         labels = {
-            #'seleccion': _('Selección'),
-            #'descripcion': _('Descripción'),
+            'correo': _('Correo del representante'),
+            'division': _('División o institución a la que pertenece'),
+            'titulo': _('Título'),
+            'tipo': _('Tipo de presentación'),
         }

@@ -6,10 +6,15 @@ import magic
 
 # Create your views here.
 
-def home(request):
+"""def home(request):
     context = {}
     context['form'] = InputForm()
-    return render(request, "index.html", context)
+    return render(request, "formularioRegistro.html", context)"""
+
+def formularioRegistro(request):
+    context = {}
+    context['form'] = InputForm()
+    return render(request, "formularioRegistro.html", context)
 
 def guardar(request):
     if request.method=='POST' and request.FILES['resumen']:
@@ -20,4 +25,4 @@ def guardar(request):
             form.save()
         else:
             raise ValidationError(u'Error de validación')
-    return redirect('/')
+    return redirect('/formularioRegistro/')

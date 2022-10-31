@@ -20,6 +20,7 @@ from Aplicacion import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
+    #path('', views.home),
+    path('formularioRegistro/', views.formularioRegistro),
     path('guardar/', views.guardar)
 ]
