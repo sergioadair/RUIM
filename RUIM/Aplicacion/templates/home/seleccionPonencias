@@ -1,0 +1,26 @@
+{% extends "home/index.html" %}
+
+
+{% block content %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Autor(es)</th>
+            <th scope="col">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ponencia in ponencias %}
+            <tr>
+            <th scope="row">{{ ponencia.id }}</th>
+            <td>{{ ponencia.titulo }}</td>
+            <td>{{ ponencia.autores }}</td>
+            <td>{{ ponencia.estado }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
