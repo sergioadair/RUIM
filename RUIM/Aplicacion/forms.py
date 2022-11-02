@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 class InputForm(forms.ModelForm):
     class Meta:
         model = InputModel
-        fields = '__all__'
+        fields = ['autores','correo','division','titulo','tipo','resumen']
         widgets = {
             'tipo': forms.RadioSelect,
             # Esto es para que solo aparezcan docx al seleccionar archivo, pero no detiene al usuario

@@ -1,0 +1,55 @@
+{% extends "home/index.html" %}
+
+
+{% block content %}
+    <h1>Ponencias</h1>
+    <form action="{% url 'seleccion' %}" method="POST">
+    {% csrf_token %}
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">Autor(es)</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Division</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Resumen</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Estado</th><!--
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>-->
+                </tr>
+            </thead>
+            <tbody>
+            {% for ponencia in ponencias %}
+                <tr>
+                <td><input class="form-check-input mt-0" type="checkbox" value="{{ ponencia.id }}" name="seleccionados"></td>
+                <th scope="row">{{ ponencia.id }}</th>
+                <td>{{ ponencia.autores }}</td>
+                <td>{{ ponencia.correo }}</td>
+                <td>{{ ponencia.division }}</td>
+                <td>{{ ponencia.titulo }}</td>
+                <td>{{ ponencia.resumen }}</td>
+                <td>{{ ponencia.tipo }}</td>
+                <td>
+                {% if ponencia.estado == 1 %}Sin revision
+                {% elif ponencia.estado == 2 %}Pendiente
+                {% elif ponencia.estado == 3 %}Aceptada
+                {% elif ponencia.estado == 4 %}Rechazada
+                {% endif %}
+                </td>
+                <!--
+                <td><a class="btn btn-warning" href="#">editar</a></td>
+                <td><a class="btn btn-danger" href="#">eliminar</a></td>-->
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    
+{% endblock %}
