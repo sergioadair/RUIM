@@ -21,6 +21,9 @@ def Ubicacion(request):
 
 def Registro(request):
     return render(request, "home/Registro.html")
+
+def Contacto(request):
+    return render(request, "home/Contacto.html")
      
 def formularioRegistro(request):
     context = {}
