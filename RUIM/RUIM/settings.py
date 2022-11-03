@@ -53,7 +53,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'RUIM.urls'
 
-LOGIN_REDIRECT_URL = 'listado'
+LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = '/login'
 
 import os

@@ -56,4 +56,4 @@ def seleccionPonencias(request):
             return render(request, "home/seleccionPonencias.html", {"ponencias":ponencias})
         
         
-    return redirect('home')
+    return redirect('listado')

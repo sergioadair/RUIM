@@ -26,6 +26,11 @@
         <li><a href="http://127.0.0.1:8000/Ubicacion">Ubicación</a></li>
         <li>Contacto</li>
         <li><a href="http://www.ruim.uson.mx/index.html" target="_blank" rel="noopener noreferrer">Edición Anterior</a></li>
+        {% if user.is_superuser %}
+        <li><a href="{% url 'listado' %}">Listado</a></li>
+        <li><a href="{% url 'logout' %}">logout</a></li>
+        
+        {% endif %}
     </ul>
 </body>
 </html>
