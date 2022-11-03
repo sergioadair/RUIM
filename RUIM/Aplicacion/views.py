@@ -2,8 +2,8 @@ from django.forms import ValidationError
 from django.shortcuts import redirect, render, HttpResponse
 from django.contrib.auth.decorators import login_required
 
-from .forms import InputForm
-from .models import InputModel
+from .forms import InputForm, AnuncioFields
+from .models import InputModel, Anuncio
 
 
 # Create your views here.
@@ -57,3 +57,32 @@ def seleccionPonencias(request):
         
         
     return redirect('listado')
+
+@login_required(login_url="/login")
+def subir(request):
+    if request.method=="POST":
+
+        Form=AnuncioFields(request.POST)
+
+        if Form.is_valid():
+            inForm=Anuncio()
+
+            inForm.Titulo=Form.cleaned_data['titulo']
+            inForm.Cuerpo=Form.cleaned_data['cuerpo']
+            
+            inForm.save()
+            AuxForm=AnuncioFields()
+            return render(request, "home/Form.html", {"form":AuxForm})
+    else:
+        Form=AnuncioFields()
+
+    return render(request, "home/Form.html", {"form":Form})
+
+def Mostrar(request):
+    Anuncios = Anuncio.objects.all().order_by('-Fecha')
+    return render(request, "home/Mostrar.html", {"Anuncios": Anuncios})
+
+@login_required(login_url="/login")
+def Asistencias(request):
+    Ponencias = InputModel.objects.all()
+    return render(request, "home/Informe.html", {"Ponencias": Ponencias})
