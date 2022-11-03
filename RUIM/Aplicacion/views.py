@@ -37,7 +37,7 @@ def guardarFR(request):
             form.save()
         else:
             raise ValidationError(u'Error de validación')
-    return redirect('/formularioRegistro/')
+    return redirect('Registro')
 
 
 
