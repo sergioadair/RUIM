@@ -1,0 +1,43 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<html>
+
+<head>
+
+<title>
+
+    Publicar Noticia
+
+</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<center>
+    <p><h1>PUBLICACION DE POST</h1></p>
+</center>
+<style>
+    .container{
+        width: 95%;
+        padding: 30px;
+        
+    }
+</style>
+</head>
+
+<body>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            {{ form|crispy}}
+            {%if form.errors %}
+                <p style="color: red;">Datos no validos</p>
+            {% endif %}
+            <input class="btn btn-primary btn-lg" href="{% url 'mostrar' %}" type="submit" value="Subir">
+            <a href="{% url 'mostrar' %}" class=" btn btn-secondary btn-lg" >Atras</a>
+        </div>
+    </form>
+</body>
+
+</html>
+{% endblock %}

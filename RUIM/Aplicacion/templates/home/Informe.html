@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <style>
+     table, th, td{
+        border: 1px solid black;
+        border-collapse: collapse;
+        margin: 7px;
+        text-align: center;
+        font-size: 13px;
+
+     }
+    </style>
+</head>
+<body>
+    <table class="table mx-auto container">
+        <thead>
+            <th scope="col">Autores</th>
+            <th scope="col">Correo</th>
+            <th scope="col">División</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Asistencia</th>
+        </thead>
+        {% for ponencia in Ponencias %}
+            <tr>
+                <div class="container">
+                    <td>{{ponencia.autores}}</td>
+                    <td>{{ponencia.correo}}</td>
+                    <td>{{ponencia.division}}</td>
+                    <td>{{ponencia.titulo}}</td>
+                    <td>{{ponencia.tipo}}</td>
+                    {% if ponencia.Asistencia == True %}
+                    <td>Asistió</td>
+                    {% else %}
+                    <td>No asistió</td>
+                    {% endif %}
+                </div>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

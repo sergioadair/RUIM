@@ -9,6 +9,11 @@ def update_filename(instance, filename): # Método para ponerle el correo como n
     format = instance.correo + ".docx"
     return os.path.join(path, format)
 
+class Anuncio(models.Model):
+    Titulo = models.CharField(max_length=255)
+    Cuerpo = models.TextField()
+    Fecha = models.DateTimeField(auto_now_add=True)
+
 class InputModel(models.Model):
     autores = models.TextField()
     correo = models.EmailField(max_length=250)
@@ -16,6 +21,7 @@ class InputModel(models.Model):
     titulo = models.CharField(max_length=250)
     tipo = models.CharField(max_length=250, choices=[('Platica', 'platica'), ('Poster', 'poster')], default='')
     resumen = models.FileField(upload_to=update_filename, null=True)
+    asistencia = models.BooleanField(default = False)
 
     ESTADO_REVISION = [
         (1, 'sin revision'),
@@ -31,3 +37,4 @@ class InputModel(models.Model):
     
     def __str__(self):
         return self.correo
+

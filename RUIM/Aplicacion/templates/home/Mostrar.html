@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anuncios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!--
+    <style>
+     table, th, td{
+        border:1px solid black;
+        border-collapse: collapse;
+     }
+    </style>
+    -->
+</head>
+<body>
+    
+    <table class="table mx-auto">
+        {% for anuncio in Anuncios %}
+        <tr class="mx-auto">
+            <td><h1>Anuncio {{anuncio.id}}</h1>{{anuncio.Fecha}}<br>
+                <big>{{anuncio.Titulo}}</big><br> 
+                {{anuncio.Cuerpo}}<br>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'post' %}" class="btn btn-secondary btn-lg" >Volver</a>
+    <!--
+    <table class="table">
+        <thead>
+            <th scope="col">Nombre de la materia</th>
+            <th scope="col">Id</th>
+            <th scope="col">Creditos</th>
+            <th scope="col">Eje de formación</th>
+            <th scope="col">Horas semanales</th>
+        </thead>
+        {% for materia in Materias %}
+            <tr>
+                <div class="container">
+                    <td>{{materia.nombre}}</td>
+                    <td>{{materia.idc}}</td>
+                    <td>{{materia.creditos}}</td>
+                    <td>{{materia.carrera}}</td>
+                    <td>{{materia.horas}}</td>
+                </div>
+            </tr>
+        {% endfor %}
+    </table>
+    -->
+</body>
+</html>

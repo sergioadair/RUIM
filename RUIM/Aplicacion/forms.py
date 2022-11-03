@@ -19,3 +19,8 @@ class InputForm(forms.ModelForm):
             'titulo': _('Título'),
             'tipo': _('Tipo de presentación'),
         }
+
+class AnuncioFields(forms.Form):
+
+    titulo = forms.CharField()
+    cuerpo = forms.CharField(widget=forms.Textarea)

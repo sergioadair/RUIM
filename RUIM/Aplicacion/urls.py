@@ -12,4 +12,7 @@ urlpatterns = [
     path('guardarFR/', views.guardarFR, name='guardarFR'),
     path('login/listado', views.listado, name='listado'),
     path('login/seleccion', views.seleccionPonencias, name='seleccion'),
+    path('anuncio/', views.subir, name="post"),
+    path('mostrar/', views.Mostrar, name="mostrar"),
+    path('informe/', views.Asistencias, name="informe"),
 ]
