@@ -1,5 +1,4 @@
 {% extends "home/base.html" %}
-
 {% block title %} RUIM {% endblock %}
 {% block content %}
 {% load static %}
@@ -14,30 +13,33 @@
         margin: 10 20px;
     }
 
+    h3 {text-align: center;}
+
 </style>
-<h3><font size="+3">Registro de trabajos</font>  </h3>
-<h3><font size="+3" align="center">Muchas Gracias por su interés en formar parte de la
+<h2><font size="+3">Registro de trabajos</font>  </h2>
+<h3><font size="+3">Muchas Gracias por su interés en formar parte de la
     XXV Reunión Universitaria de Investigación en Materiales
     (RUIM 2022)</font>  </h3>
-<a href="{% static 'docs/RUIM2022.docx' %}" download="Ruim2022.docx">Formato para resúmenes</a>
-
-    <ul id="Info">
-        <li><font size="+2">XXV Reunión Universitaria de Investigación en Materiales (RUIM 2022)</font></li>
-        <li><font size="+2">Del 9 al 11 de Noviembre</font></li>
-        <li><font size="+2">Auditorio del Centro de las Artes</font></li>
-    </ul>
-    
-
-<p align="center">
-    El objetivo de la Reunión Universitaria de Investigación en Materiales (RUIM 2022) es dar a conocer a la comunidad universitaria las actividades que se desarrollan en nuestra institución mediante la presentación de trabajos, por parte de estudiantes y profesores de la Universidad de Sonora, que tengan como temática la investigación en materiales.
-</p>
-<p align="center">
-    Por lo anterior, se convoca a los estudiantes de Posgrado y estudiantes avanzados de Licenciatura, así como a los profesores e investigadores de las Divisiones de Ciencias Exactas y Naturales (DCEN), Ciencias Biológicas y de la Salud (DCBS), e Ingeniería (DI) de la Universidad de Sonora, a presentar trabajos en la XXV Reunión Universitaria de Investigación en Materiales (RUIM 2022).
-</p>
-<p align="center">
-    El registro a la RUIM 2022, así como todas las actividades que se tienen contempladas,
-</p>
-<p align="center">
-    NO tienen costo y son de libre acceso.
-</p>
+<div style="text-align:center">    
+    <a href="{% static 'docs/RUIM2022.docx' %}" download="RUIM2022.docx">Formato para resúmenes</a>
+    <!-- more links here -->
+</div>
+<h2>Participación como ponente</h2>
+<p>Las formas de Participación en la RUIM 2022 son las siguientes:</p>
+<ul id="Info">
+    <li><font size="+2">Pláticas Invitadas;</font></li>
+    <li><font size="+2">Posters (distribuidos en sesiones vespertinas)</font></li>
+</ul>
+<h3><font size="+1">Las participaciones, tanto en formato de plática como de Póster, se deberán enviar haciendo clic AQUI (Formulario de Registro CERRADO).</font></h3>
+<h2>Formato para resumen</h2>
+<p>El formato del Resumen es igual para las dos formas de participación y la extensión es de una o dos cuartillas siguiendo la plantilla en formato Word 2010 y posteriores (*.docx), la cual está disponible <a href="static/docs/RUIM2022.docx" download="RUIM2022.docx">AQUI</a></p>
+<h2>Constancias de participación</h2>
+<p>Se extenderán Constancias de Participación en los siguientes formatos:</p>
+<ul id="Info">
+    <li><font size="+2">Plática Invitada (Constancia de Plática Invitada);</font></li>
+    <li><font size="+2">Poster (Constancia de Presentación de Cartel).</font></li>
+</ul>
+<h2>Participación en los Cursos Talleres</h2>
+<p>Para participar en alguno de los Cursos-Talleres que se realizarán durante la RUIM 2022, se hace necesario pre-registrarse, para ello, próximamente se habilitará el enlace correspondiente.</p>
+<p align="center">La RUIM es un evento anual organizado por tres divisiones de la Universidad de Sonora con calidad y nivel comparables a las de un Taller Internacional, por lo que el Comité Organizador buscará que el evento sea avalado por las instancias colegiadas de la UNISON para que las constancias emitidas tengan además el valor curricular requerido por el Programa de Estímulos al Desempeño del Personal Docente y otros.</p>
 {% endblock %}
