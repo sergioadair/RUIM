@@ -7,10 +7,21 @@ from .models import InputModel
 
 
 # Create your views here.
-def home(request):
-    return HttpResponse("Home :)")
+def index(request):
+    return render(request, "home/index.html")
 
+def Programa(request):
+    return render(request, "home/Programa.html")
 
+def Poster(request):
+    return render(request, "home/Poster.html")
+
+def Ubicacion(request):
+    return render(request, "home/Ubicacion.html")
+
+def Registro(request):
+    return render(request, "home/Registro.html")
+     
 def formularioRegistro(request):
     context = {}
     context['form'] = InputForm()
@@ -46,4 +57,3 @@ def seleccionPonencias(request):
         
         
     return redirect('home')
-    

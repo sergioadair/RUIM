@@ -1,43 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>RUIM</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-</head>
+{% extends "home/base.html" %}
 
-<body class="blurBg-false" style="background-color:#EBEBEB">
+{% block title %} RUIM {% endblock %}
+{% block content %}
+<style>
+    #info{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-        <p></p>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">home</a>
-            </li>
-            {% if user.is_superuser %}
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">logout</a>
-            </li>
-            {% endif %}
-            </ul>
-        </div>
-    </div>
-</nav>
+    #info li{
+        margin: 10 20px;
+    }
 
-<div class="content container">
-    {% block content %}
+</style>
+<h3><font size="+3">Bienvenid@s</font>  </h3>
 
-    {% endblock %}
-</div>
+    <ul id="Info">
+        <li><font size="+2">XXV Reunión Universitaria de Investigación en Materiales (RUIM 2022)</font></li>
+        <li><font size="+2">Del 9 al 11 de Noviembre</font></li>
+        <li><font size="+2">Auditorio del Centro de las Artes</font></li>
+    </ul>
+    
 
-
-</body>
-</html>
+<p align="center">
+    El objetivo de la Reunión Universitaria de Investigación en Materiales (RUIM 2022) es dar a conocer a la comunidad universitaria las actividades que se desarrollan en nuestra institución mediante la presentación de trabajos, por parte de estudiantes y profesores de la Universidad de Sonora, que tengan como temática la investigación en materiales.
+</p>
+<p align="center">
+    Por lo anterior, se convoca a los estudiantes de Posgrado y estudiantes avanzados de Licenciatura, así como a los profesores e investigadores de las Divisiones de Ciencias Exactas y Naturales (DCEN), Ciencias Biológicas y de la Salud (DCBS), e Ingeniería (DI) de la Universidad de Sonora, a presentar trabajos en la XXV Reunión Universitaria de Investigación en Materiales (RUIM 2022).
+</p>
+<p align="center">
+    El registro a la RUIM 2022, así como todas las actividades que se tienen contempladas,
+</p>
+<p align="center">
+    NO tienen costo y son de libre acceso.
+</p>
+{% endblock %}
