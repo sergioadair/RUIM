@@ -1,7 +1,13 @@
+import os
 from django.db import models
-#from time import strftime
+from time import strftime
 
 # Create your models here.
+
+def update_filename(instance, filename): # Método para ponerle el correo como nombre al resumen
+    path = "resumenes/"+strftime("%Y")
+    format = instance.correo + ".docx"
+    return os.path.join(path, format)
 
 class InputModel(models.Model):
     autores = models.TextField()
@@ -9,7 +15,7 @@ class InputModel(models.Model):
     division = models.CharField(max_length=250)
     titulo = models.CharField(max_length=250)
     tipo = models.CharField(max_length=250, choices=[('Platica', 'platica'), ('Poster', 'poster')], default='')
-    resumen = models.FileField(upload_to='resumenes/%Y', null=True)
+    resumen = models.FileField(upload_to=update_filename, null=True)
 
     ESTADO_REVISION = [
         (1, 'sin revision'),
