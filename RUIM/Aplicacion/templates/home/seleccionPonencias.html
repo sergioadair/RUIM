@@ -9,6 +9,7 @@
             <th scope="col">ID</th>
             <th scope="col">Titulo</th>
             <th scope="col">Autor(es)</th>
+            <th scope="col">Correo</th>
             <th scope="col">Estado</th>
             </tr>
         </thead>
@@ -18,7 +19,14 @@
             <th scope="row">{{ ponencia.id }}</th>
             <td>{{ ponencia.titulo }}</td>
             <td>{{ ponencia.autores }}</td>
-            <td>{{ ponencia.estado }}</td>
+            <td>{{ ponencia.correo }}</td>
+            <td>
+                {% if ponencia.estado == 1 %}Sin revision
+                {% elif ponencia.estado == 2 %}Pendiente
+                {% elif ponencia.estado == 3 %}Aceptada
+                {% elif ponencia.estado == 4 %}Rechazada
+                {% endif %}
+            </td>
             </tr>
         {% endfor %}
         </tbody>
