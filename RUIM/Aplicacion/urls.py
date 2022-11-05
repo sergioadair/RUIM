@@ -15,4 +15,6 @@ urlpatterns = [
     path('FormNoticias/', views.subir, name="post"),
     path('Noticias/', views.Mostrar, name="mostrar"),
     path('informe/', views.Asistencias, name="informe"),
+    path('solicitar-constancia/', views.solicitarConstancia),
+    path('send_email/', views.send_email),
 ]
