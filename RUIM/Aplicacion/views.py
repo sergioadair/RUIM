@@ -1,9 +1,12 @@
 from django.forms import ValidationError
 from django.shortcuts import redirect, render, HttpResponse
 from django.contrib.auth.decorators import login_required
-
+from PIL import Image, ImageDraw, ImageFont
+from django.core.mail import EmailMessage
+from django.contrib import messages
 from .forms import InputForm, AnuncioFields
 from .models import InputModel, Anuncio
+from django.conf import settings
 
 
 # Create your views here.
@@ -89,3 +92,61 @@ def Mostrar(request):
 def Asistencias(request):
     Ponencias = InputModel.objects.all()
     return render(request, "home/Informe.html", {"Ponencias": Ponencias})
+
+def solicitarConstancia(request):
+    return render(request, "solicitar-constancia.html")
+
+def send_email(request):
+
+    find_participante = InputModel.objects.filter(correo=request.POST['Email'])
+    
+    if not find_participante.exists():
+        messages.error(request, 'La información introducida es incorrecta. Por favor revísala.')
+        return redirect('/solicitar-constancia/')
+
+    if not find_participante.get().estado == 3:
+        messages.error(request, 'Participante no aceptado')
+        return redirect('/solicitar-constancia/')
+
+    generar_PDF(find_participante)
+    Asunto = "Constancia digital de evento formativo"
+    Mensaje = "Aquí está tu constancia digital."
+    Emisor = settings.EMAIL_HOST_USER
+    Receptor = request.POST['Email']
+    email = EmailMessage(Asunto, Asunto, Emisor, [Receptor])
+    email.content_subtype='html'
+    correo = str(find_participante.get().correo)
+    for i in range(len(correo)):
+        if correo[i] == "@":
+            correo_aux = correo[0:i]
+    email.attach_file('Aplicacion/certificados/certificate_' + correo_aux + '.pdf')
+    try:
+        email.send()
+        messages.success(request, 'La constancia fue enviada al correo especificado.')
+    except Exception:
+        messages.error(request, 'Se ha excedido el tiempo de espera.')
+    return redirect('/solicitar-constancia/')
+
+
+def generar_PDF(participante):
+    W, H = (1280,720)
+    nombre = participante.get().titulo
+
+    im = Image.open('Aplicacion/media/static/images/Plantilla.jpg')
+    d = ImageDraw.Draw(im)
+    text_color = (0, 0, 160)
+    font = ImageFont.truetype("arial.ttf", 70)
+
+    w, h = d.textsize(nombre)
+    location = ((W-w)/2, 650)
+    d.text(location, nombre, fill=text_color,font=font)
+
+    correo = str(participante.get().correo)
+    for i in range(len(correo)):
+        if correo[i] == "@":
+            correo_aux = correo[0:i]
+    qr_code = Image.open('Aplicacion/media/static/images/'+correo_aux+'qr.png')
+    b = ImageDraw.Draw(qr_code)
+    im.paste(qr_code, (860, 1100))
+    im.save("Aplicacion/certificados/certificate_"+correo_aux+".pdf")
+    
