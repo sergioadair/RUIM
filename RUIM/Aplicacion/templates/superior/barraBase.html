@@ -1,6 +1,5 @@
+{% load static %}
 <html>
-
-
 <style>
     #barra{
         margin: 0;
@@ -21,7 +20,7 @@
         <li><a href="{% url 'index' %}">Inicio</a></li>
         <li><a href="{% url 'Programa' %}">Programa</a></li>
         <li><a href="{% url 'Poster' %}">Póster</a></li>
-        <li>Memorias</li>
+        <li><a href="{% static 'pdfs/memorias_ruim2018.pdf' %}" target="_blank" rel="memorys">Memorias</a></li>
         <li><a href="{% url 'Registro' %}">Registro</a></li>
         <li><a href="{% url 'Ubicacion' %}">Ubicación</a></li>
         <li><a href="{% url 'Contacto' %}">Contacto</a></li>
