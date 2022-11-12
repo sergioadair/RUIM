@@ -39,8 +39,7 @@ def guardarFR(request):
         if form.is_valid() and request.FILES['resumen'].name.endswith('.docx'):
             form.save()
         else:
-            #raise ValidationError(u'Error de validación')
-            messages.error(request, 'El archivo que intenta enviar no es tipo docx. Por favor revísalo.')
+            messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')
             return redirect('formularioRegistro')
     return redirect('Registro')
 
