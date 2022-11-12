@@ -38,6 +38,7 @@ def guardarFR(request):
         form = InputForm(request.POST, request.FILES)
         if form.is_valid() and request.FILES['resumen'].name.endswith('.docx'):
             form.save()
+            messages.success(request, 'El registro fue enviado con éxito.')
         else:
             messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')
             return redirect('formularioRegistro')
