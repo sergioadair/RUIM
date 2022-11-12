@@ -23,7 +23,7 @@ class InputModel(models.Model):
     correo = models.EmailField(max_length=250)
     division = models.CharField(max_length=250)
     titulo = models.CharField(max_length=250)
-    tipo = models.CharField(max_length=250, choices=[('Platica', 'platica'), ('Poster', 'poster')], default='')
+    tipo = models.CharField(max_length=250, choices=[('Platica', 'Plática'), ('Poster', 'Póster')], default='')
     resumen = models.FileField(upload_to=update_filename, null=True)
     asistencia = models.BooleanField(default = False)
     code = models.ImageField(blank=True)
