@@ -29,21 +29,19 @@ def Contacto(request):
     return render(request, "home/Contacto.html")
      
 def formularioRegistro(request):
-    context = {}
-    context['form'] = InputForm()
-    return render(request, "formularioRegistro.html", context)
-
-def guardarFR(request):
-    if request.method=='POST' and request.FILES['resumen']:
+    if request.method=='POST' and request.FILES.get('resumen', False):
         form = InputForm(request.POST, request.FILES)
         if form.is_valid() and request.FILES['resumen'].name.endswith('.docx'):
             form.save()
             messages.success(request, 'El registro fue enviado con éxito.')
+            return redirect('Registro')
         else:
             messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')
-            return redirect('formularioRegistro')
-    return redirect('Registro')
-
+            context = {"form": InputForm(initial=form.data.dict())}
+            return render(request, "formularioRegistro.html", context)
+    context = {}
+    context['form'] = InputForm()
+    return render(request, "formularioRegistro.html", context)
 
 
 @login_required(login_url="/login")

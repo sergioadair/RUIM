@@ -18,9 +18,9 @@
 
     <body>
         {% if form.is_multipart %}
-        <form action = "/guardarFR/" method = "post" enctype="multipart/form-data">
+        <form action = "{% url 'formularioRegistro' %}" method = "post" enctype="multipart/form-data">
         {% else %}
-        <form action = "/guardarFR/" method = "post">
+        <form action = "{% url 'formularioRegistro' %}" method = "post">
         {% endif %}
             {% csrf_token %}
 
@@ -37,7 +37,7 @@
             {% endif %}
 
             <table>
-                {{ form|crispy}}
+                {{ form|crispy }}
             </table>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
