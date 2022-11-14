@@ -19,11 +19,7 @@
     </head>
 
     <body>
-        {% if form.is_multipart %}
         <form action = "{% url 'formularioRegistro' %}" method = "post" enctype="multipart/form-data">
-        {% else %}
-        <form action = "{% url 'formularioRegistro' %}" method = "post">
-        {% endif %}
             {% csrf_token %}
 
             <!-- Mensaje de error -->
@@ -66,30 +62,68 @@
                 </div-->
                 <div id="div_id_correo" class="form-group"> 
                     <label for="id_correo" class=" requiredField">Correo del representante<span class="asteriskField text-danger">*</span> </label> 
-                    <div> <input type="email" name="correo" maxlength="250" class="emailinput form-control" required="" id="id_correo"> </div> 
+                    <div> 
+                        {% if messages %}
+                        <input type="email" name="correo" value="{{form.correo}}" maxlength="250" class="emailinput form-control" required="" id="id_correo">
+                        {% else %}
+                        <input type="email" name="correo" maxlength="250" class="emailinput form-control" required="" id="id_correo">
+                        {% endif %}
+                    </div>
                 </div>
                 <div id="div_id_division" class="form-group"> 
                     <label for="id_division" class=" requiredField">División o institución a la que pertenece<span class="asteriskField text-danger">*</span> </label> 
-                    <div> <input type="text" name="division" maxlength="250" class="textinput textInput form-control" required="" id="id_division"> </div> 
+                    <div> 
+                        {% if messages %}
+                        <input type="text" name="division" value="{{form.division}}" maxlength="250" class="textinput textInput form-control" required="" id="id_division">
+                        {% else %}
+                        <input type="text" name="division" maxlength="250" class="textinput textInput form-control" required="" id="id_division">
+                        {% endif %}
+                    </div> 
                 </div>
                 <div id="div_id_titulo" class="form-group"> 
                     <label for="id_titulo" class=" requiredField">Título<span class="asteriskField text-danger">*</span> </label> 
-                    <div> <input type="text" name="titulo" maxlength="250" class="textinput textInput form-control" required="" id="id_titulo"> </div> 
+                    <div> 
+                        {% if messages %}
+                        <input type="text" name="titulo" value="{{form.titulo}}" maxlength="250" class="textinput textInput form-control" required="" id="id_titulo">
+                        {% else %}
+                        <input type="text" name="titulo" maxlength="250" class="textinput textInput form-control" required="" id="id_titulo">
+                        {% endif %}
+                    </div> 
                 </div>
                 <div id="div_id_tipo" class="form-group"> 
                     <label class=" requiredField">Tipo de presentación<span class="asteriskField text-danger">*</span> </label> 
                     <div> 
+                        {% if messages %}
+                        {% if form.tipo == 'Platica' %}
+                        <div class="form-check"> 
+                            <input type="radio" class="form-check-input" name="tipo" value="Platica" id="id_tipo_0" required="" checked>
+                            <label class="form-check-label" for="id_tipo_0">Plática</label> </div> 
+                        <div class="form-check"> 
+                            <input type="radio" class="form-check-input" name="tipo" value="Poster" id="id_tipo_1" required=""> 
+                            <label class="form-check-label" for="id_tipo_1">Póster</label> </div>
+                        {% else %}
+                        <div class="form-check"> 
+                            <input type="radio" class="form-check-input" name="tipo" value="Platica" id="id_tipo_0" required="">
+                            <label class="form-check-label" for="id_tipo_0">Plática</label> </div> 
+                        <div class="form-check"> 
+                            <input type="radio" class="form-check-input" name="tipo" value="Poster" id="id_tipo_1" required="" checked> 
+                            <label class="form-check-label" for="id_tipo_1">Póster</label> </div>
+                        {% endif %}
+                        {% else %}
                         <div class="form-check"> 
                             <input type="radio" class="form-check-input" name="tipo" value="Platica" id="id_tipo_0" required="">
                             <label class="form-check-label" for="id_tipo_0">Plática</label> </div> 
                         <div class="form-check"> 
                             <input type="radio" class="form-check-input" name="tipo" value="Poster" id="id_tipo_1" required=""> 
-                            <label class="form-check-label" for="id_tipo_1">Póster</label> </div> 
+                            <label class="form-check-label" for="id_tipo_1">Póster</label> </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div id="div_id_resumen" class="form-group"> 
                     <label for="id_resumen" class=" requiredField">Resumen<span class="asteriskField text-danger">*</span> </label> 
-                    <div> <input type="file" name="resumen" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="fileinput fileUpload form-control-file" required="" id="id_resumen"> </div> 
+                    <div> 
+                        <input type="file" name="resumen" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="fileinput fileUpload form-control-file" required="" id="id_resumen">
+                    </div> 
                 </div>
             </table>
             <br>
