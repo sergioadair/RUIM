@@ -20,9 +20,9 @@
 
     <body>
         {% if form.is_multipart %}
-        <form action = "{% url 'formularioRegistro' %}" method = "post" enctype="multipart/form-data" class="needs-validation">
+        <form action = "{% url 'formularioRegistro' %}" method = "post" enctype="multipart/form-data">
         {% else %}
-        <form action = "{% url 'formularioRegistro' %}" method = "post" class="needs-validation">
+        <form action = "{% url 'formularioRegistro' %}" method = "post">
         {% endif %}
             {% csrf_token %}
 
