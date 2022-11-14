@@ -13,13 +13,17 @@ def update_filename(instance, filename): # Método para ponerle el correo como n
     format = instance.correo + ".docx"
     return os.path.join(path, format)
 
+def numAutores_choices(): # Método para obtener un rango numérico de opciones para el select
+        return [(r,r) for r in range(1, 11)]
+
 class Anuncio(models.Model):
     Titulo = models.CharField(max_length=255)
     Cuerpo = models.TextField()
     Fecha = models.DateTimeField(auto_now_add=True)
 
 class InputModel(models.Model):
-    autores = models.TextField()
+    numAutores = models.IntegerField(choices=numAutores_choices(), default=1)
+    autores = models.TextField(default='')
     correo = models.EmailField(max_length=250)
     division = models.CharField(max_length=250)
     titulo = models.CharField(max_length=250)
