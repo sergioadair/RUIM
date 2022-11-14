@@ -31,12 +31,28 @@ def Contacto(request):
 def formularioRegistro(request):
     if request.method=='POST' and request.FILES.get('resumen', False):
         form = InputForm(request.POST, request.FILES)
+        #post = request.POST.copy()
+        #post['numAutores'] = 5
+        #request.POST = post
+        #print(form)
         if form.is_valid() and request.FILES['resumen'].name.endswith('.docx'):
-            form.save()
+            autores_ = ''
+            for i in range(1, int(request.POST['numAutores'])+1) :
+                autores_ += request.POST['autor'+str(i)]
+                if i < int(request.POST['numAutores']): autores_ += ", "
+            modelo = InputModel.objects.create(
+                numAutores = request.POST['numAutores'],
+                autores = autores_,
+                correo = request.POST['correo'],
+                division = request.POST['division'],
+                titulo = request.POST['titulo'],
+                tipo = request.POST['tipo']
+            )
             messages.success(request, 'El registro fue enviado con éxito.')
             return redirect('Registro')
         else:
             messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')
+            print(form.data.dict())
             context = {"form": InputForm(initial=form.data.dict())}
             return render(request, "formularioRegistro.html", context)
     context = {}

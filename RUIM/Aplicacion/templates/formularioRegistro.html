@@ -1,5 +1,6 @@
 {% extends "home/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %} RUIM {% endblock %}
 {% block content %}
@@ -14,6 +15,7 @@
                 text-align: right;
             }
         </style>
+        <script src="{% static 'js/formularioRegistro.js' %}"></script>
     </head>
 
     <body>
@@ -37,10 +39,63 @@
             {% endif %}
 
             <table>
-                {{ form|crispy }}
+                <span class="asteriskField text-danger">*Obligatorio</span>
+                <div id="" class="form-group"><br></div>
+
+                <div id="div_id_numAutores" class="form-group"> 
+                    <label for="id_numAutores" class="">Número de Autores</label> 
+                    <div> 
+                        <select name="numAutores" onchange="cambiarCampos()" class="select form-control" id="id_numAutores">
+                        {% for i in '0123456789'|make_list %}
+                        {% if forloop.counter == 1 %}
+                        <option selected value="{{forloop.counter}}">{{forloop.counter}}</option>
+                        {% else %}
+                        <option value="{{forloop.counter}}">{{forloop.counter}}</option>
+                        {% endif %}
+                        {% endfor %}
+                      </select> 
+                    </div> 
+                </div>
+                <div id="div_id_au" class="form-group"> 
+                    <label for="id_autor1" class=" requiredField">Autor 1<span class="asteriskField text-danger">*</span> </label> 
+                    <div> <input type="text" name="autor1" id="id_autor1" maxlength="250" class="textinput textInput form-control" required=""> </div> 
+                </div>
+                <!--div id="div_id_autores" class="form-group"> 
+                    <label for="id_autores" class=" requiredField">Autores<span class="asteriskField">*</span> </label> 
+                    <div> <textarea name="autores" cols="40" rows="10" class="textarea form-control" required="" id="id_autores"></textarea> </div> 
+                </div-->
+                <div id="div_id_correo" class="form-group"> 
+                    <label for="id_correo" class=" requiredField">Correo del representante<span class="asteriskField text-danger">*</span> </label> 
+                    <div> <input type="email" name="correo" maxlength="250" class="emailinput form-control" required="" id="id_correo"> </div> 
+                </div>
+                <div id="div_id_division" class="form-group"> 
+                    <label for="id_division" class=" requiredField">División o institución a la que pertenece<span class="asteriskField text-danger">*</span> </label> 
+                    <div> <input type="text" name="division" maxlength="250" class="textinput textInput form-control" required="" id="id_division"> </div> 
+                </div>
+                <div id="div_id_titulo" class="form-group"> 
+                    <label for="id_titulo" class=" requiredField">Título<span class="asteriskField text-danger">*</span> </label> 
+                    <div> <input type="text" name="titulo" maxlength="250" class="textinput textInput form-control" required="" id="id_titulo"> </div> 
+                </div>
+                <div id="div_id_tipo" class="form-group"> 
+                    <label class=" requiredField">Tipo de presentación<span class="asteriskField text-danger">*</span> </label> 
+                    <div> 
+                        <div class="form-check"> 
+                            <input type="radio" class="form-check-input" name="tipo" value="Platica" id="id_tipo_0" required="">
+                            <label class="form-check-label" for="id_tipo_0">Plática</label> </div> 
+                        <div class="form-check"> 
+                            <input type="radio" class="form-check-input" name="tipo" value="Poster" id="id_tipo_1" required=""> 
+                            <label class="form-check-label" for="id_tipo_1">Póster</label> </div> 
+                    </div>
+                </div>
+                <div id="div_id_resumen" class="form-group"> 
+                    <label for="id_resumen" class=" requiredField">Resumen<span class="asteriskField text-danger">*</span> </label> 
+                    <div> <input type="file" name="resumen" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="fileinput fileUpload form-control-file" required="" id="id_resumen"> </div> 
+                </div>
             </table>
+            <br>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
+        <br>
     </body>
 </html>
 {% endblock %}
