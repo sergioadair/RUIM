@@ -29,7 +29,7 @@ def Contacto(request):
     return render(request, "home/Contacto.html")
      
 def formularioRegistro(request):
-    if request.method=='POST' and request.FILES.get('resumen', False):
+    if request.method=='POST' and request.FILES:
         form = InputForm(request.POST, request.FILES)
         #post = request.POST.copy()
         #post['numAutores'] = 5
@@ -46,14 +46,22 @@ def formularioRegistro(request):
                 correo = request.POST['correo'],
                 division = request.POST['division'],
                 titulo = request.POST['titulo'],
-                tipo = request.POST['tipo']
+                tipo = request.POST['tipo'],
+                resumen = request.FILES['resumen']
             )
             messages.success(request, 'El registro fue enviado con éxito.')
             return redirect('Registro')
         else:
             messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')
-            print(form.data.dict())
-            context = {"form": InputForm(initial=form.data.dict())}
+            #print(form.data.dict())
+            context = {"form": {
+                'numAutores': form.cleaned_data['numAutores'], 
+                'correo': form.cleaned_data['correo'], 
+                'division': form.cleaned_data['division'], 
+                'titulo': form.cleaned_data['titulo'], 
+                'tipo': form.cleaned_data['tipo'],
+                'resumen': form.cleaned_data['resumen']
+            }}
             return render(request, "formularioRegistro.html", context)
     context = {}
     context['form'] = InputForm()
