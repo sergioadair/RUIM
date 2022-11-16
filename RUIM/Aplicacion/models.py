@@ -5,6 +5,7 @@ import qrcode
 from io import BytesIO
 from django.core.files import File
 from PIL import Image
+import os
 
 # Create your models here.
 
@@ -48,17 +49,21 @@ class InputModel(models.Model):
         return self.correo
     
     def save(self, *args, **kwargs):
-        qr_image = qrcode.make("OTP es: "+str(self.id))
-        qr_offset = Image.new('RGB', (350, 350),'white')
-        qr_offset.paste(qr_image)
         correo = self.correo
         for i in range(len(correo)):
             if correo[i] == "@":
                 correo_aux = correo[0:i]
+        ruta = "Aplicacion/media/static/images/"+ correo_aux +"qr.png"
+        if os.path.exists(ruta):
+            os.remove(ruta)
+        qr_image = qrcode.make(str(self.id))
+        qr_offset = Image.new('RGB', (260, 260),'white')
+        qr_offset.paste(qr_image)
         files_name = f'static/images/{correo_aux}qr.png'
         stream = BytesIO()
         qr_offset.save(stream, 'PNG')
         self.code.save(files_name, File(stream), save=False)
         qr_offset.close()
         super().save(*args, **kwargs)
+        
 

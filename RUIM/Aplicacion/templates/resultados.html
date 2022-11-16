@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Información</title>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container" style="padding-top: 1em;">
+        <div class="panel panel-default">
+        <div class="panel-heading">Información con folio: <strong>{{query}}</strong></div>
+        <div class="panel-body">
+            {% if users %}
+            {% for user in users %}
+            Autor/es: {{user.autores}}
+            {% endfor %}
+        {% endif %}
+
+        {% if users %}
+            <ul class="list-group">
+            {% for user in users %}
+                <li class="list-group-item">Division: {{user.division}}</li>
+                <li class="list-group-item">Modalidad: {{user.tipo}}</li>
+                <li class="list-group-item">Titulo: {{user.titulo}}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Folio no encontrado</p>
+        {% endif %}
+    </body>
+</html>
