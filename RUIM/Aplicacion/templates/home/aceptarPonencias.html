@@ -1,0 +1,61 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+
+<h1>Aceptar ponencias</h1>
+<form action="{% url 'mensaje' %}" method="POST">
+    {% csrf_token %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col"></th>
+            <th scope="col">ID</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Autor(es)</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ponencia in ponencias %}
+            <tr>
+            <td><input class="form-check-input mt-0" type="checkbox" value="{{ ponencia.correo }}" name="seleccionados" checked></td>
+            <th scope="row">{{ ponencia.id }}</th>
+            <td>{{ ponencia.titulo }}</td>
+            <td>{{ ponencia.autores }}</td>
+            <td>{{ ponencia.correo }}</td>
+            <td>
+                {% if ponencia.estado == 1 %}Sin revision
+                {% elif ponencia.estado == 2 %}Pendiente
+                {% elif ponencia.estado == 3 %}Aceptada
+                {% elif ponencia.estado == 4 %}Rechazada
+                {% endif %}
+            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        
+        
+    <h3>Se enviará un correo de aceptado a los ponentes seleccionados</h3>
+    <h4>Asunto</h4>
+    <input class="form-control" type="text" placeholder="Titulo del correo para los aceptados" value="Tu ponencia fue aceptada" name="asunto" required>
+    <h4>Contenido del correo</h4>
+    <textarea class="form-control" rows="5" placeholder="Mensaje que recibiran los ponentes que se presentaran en la RUIM." name="mensaje" required>Felicidades. Tu ponencia fue aceptada y la presentaras en la próxima Reunión Universitaria de Investigación en Materiales (RUIM) 2022.
+    Atentamente: Coordinación RUIM.</textarea>
+    <br>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-secondary" href="{% url 'listado' %}" role="button">Cancelar</a>
+        <button type="submit" class="btn btn-primary" value="3" name="accion">Aceptar</button>
+    </div>
+
+</form>
+{% endblock %}
