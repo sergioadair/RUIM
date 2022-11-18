@@ -1,57 +1,12 @@
 {% extends "home/base.html" %}
-
+{% load static %}
 {% block title %} RUIM {% endblock %}
 {% block content %}
 
-<h3>
-    <font size="+3">Programa de actividades</font> 
-</h3>
-<style>
-    table, th, td{
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-</style>
-<table align="center" style="width: 65%">
-    <tr>
-        <th>Hora</th>
-        <th>Miércoles 9</th>
-        <th>Jueves 10</th>
-        <th>Viernes 11</th>
-    </tr>
-    <tr>
-        <td align="center">SESIÓN moderador</td>
-        <td align="center">SESIÓN 1 Rafael García Gutiérrez</td>
-        <td align="center">SESIÓN 3 Lorena Armenta</td>
-        <td align="center">SESIÓN 5 Diego Soto Puebla</td>
-    </tr>
-    <tr>
-        <td>8:40-9:20</td>
-        <td align="center">
-            INAGURACIÓN<br>
-            Dra. María Rita<br>
-            Plancarte Martínez
-        </td>
-    </tr>
-    <tr>
-        <td>
-            9:20-10:00
-        </td>
-        <td align="center">
-            CI 1: Karla Josefina<br>
-            Santacruz Gómez <br>
-            (DF-UniSon)
-        </td>
-        <td align="center">
-            CI 6: Marcelino<br>
-            Barboza Flores<br>
-            (DIFUS-UniSon)
-        </td>
-        <td align="center">
-            CI 11: Maribel Plascencia<br>
-            Jatomea<br>
-            (DF-UniSon)
-        </td>
-    </tr>
-</table>
+<body>
+    <h3> 
+        <font size="+3">Programa</font>
+    </h3>
+    <p align="center" ><embed src="{% static "pdfs/testpdf.pdf"%}" type="application/pdf" width="540px" height="740px"/></p>
+</body>
 {% endblock %}
