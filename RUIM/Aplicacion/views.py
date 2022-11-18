@@ -7,6 +7,7 @@ from django.contrib import messages
 from .forms import InputForm, AnuncioFields
 from .models import InputModel, Anuncio
 from django.conf import settings
+from time import strftime
 
 
 # Create your views here.
@@ -50,6 +51,25 @@ def formularioRegistro(request):
                 resumen = request.FILES['resumen']
             )
             messages.success(request, 'El registro fue enviado con éxito.')
+            
+            Asunto = "Registro de ponencia enviado"
+            Mensaje = "Su solicitud para participar como ponente en la RUIM "+strftime("%Y")+" ha sido enviada con éxito. Espere la confirmación en los próximos días.\n\n"
+            Mensaje += "Autores: " + modelo.autores + "\n"
+            Mensaje += "Correo: " + modelo.correo + "\n"
+            Mensaje += "División: " + modelo.division + "\n"
+            Mensaje += "Título: " + modelo.titulo + "\n"
+            Mensaje += "Tipo: " + modelo.tipo + "\n"
+            Emisor = settings.EMAIL_HOST_USER
+            Receptor = modelo.correo
+            email = EmailMessage(Asunto, Mensaje, Emisor, [Receptor])
+            email.content_subtype='html'
+            email.attach_file('Aplicacion/media/' + modelo.resumen.name)
+            try:
+                email.send()
+                messages.success(request, 'La información de registro fue enviada al correo especificado.')
+            except Exception:
+                messages.error(request, 'No se le harán llegar al correo sus respuestas del formulario.')
+
             return redirect('Registro')
         else:
             messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')

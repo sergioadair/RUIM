@@ -24,6 +24,11 @@
     <strong>Solicitud enviada:</strong> {{ message }}
 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button></div>
 {% endif %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger alert-dismissible fade show" style="margin-top: 12px;" role="alert">
+    <strong>Tiempo de espera agotado:</strong> {{ message }}
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button></div>
+{% endif %}
 {% endfor %}
 {% endif %}
 
