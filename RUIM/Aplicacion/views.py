@@ -27,7 +27,7 @@ def Registro(request):
 
 def Contacto(request):
     return render(request, "home/Contacto.html")
-     
+    
 def formularioRegistro(request):
     context = {}
     context['form'] = InputForm()
@@ -46,7 +46,7 @@ def guardarFR(request):
 
 @login_required(login_url="/login")
 def listado(request):
-    ponencias = InputModel.objects.all()
+    ponencias = InputModel.objects.all().order_by('estado')
     
     return render(request, "home/listarPonencias.html", {"ponencias":ponencias})
 
@@ -55,14 +55,73 @@ def listado(request):
 def seleccionPonencias(request):
     if request.method=='POST':
         seleccion = request.POST.getlist("seleccionados")
-        print(seleccion)
+        accion = request.POST.get("acciones")
         
         if(seleccion != []):
             ponencias = InputModel.objects.filter(id__in=seleccion)
-            return render(request, "home/seleccionPonencias.html", {"ponencias":ponencias})
-        
+            if(accion == "revision"):
+                return render(request, "home/revisionPonencias.html", {"ponencias":ponencias})
+            elif(accion == "aceptar"):
+                return render(request, "home/aceptarPonencias.html", {"ponencias":ponencias})
+            else:
+                return render(request, "home/rechazarPonencias.html", {"ponencias":ponencias})
         
     return redirect('listado')
+
+
+@login_required(login_url="/login")
+def Correo_Estado(request):
+    
+    if request.method == "POST":
+        correos = request.POST.getlist("seleccionados")
+        ponencias = InputModel.objects.filter(correo__in=correos)
+        accion = request.POST.get("accion")
+        
+        #correos = ponencias.values_list('correo', flat=True)
+        
+        
+        asunto = request.POST['asunto']
+        mensaje = request.POST['mensaje']
+        emisor = settings.EMAIL_HOST_USER
+        
+        
+        if accion != "2":
+            receptor = correos
+            
+            email = EmailMessage(asunto, mensaje, emisor, receptor)
+        else:
+            receptor = ['valenz_eric@hotmail.com'] #Correo de quien tenga que revisar las ponencias
+            
+            email = EmailMessage(asunto, mensaje, emisor, receptor)
+            
+            for correo in correos:
+                correo_aux = ""
+                for i in range(len(correo)):
+                    if correo[i] != "@":
+                        correo_aux += correo[i]
+                    
+                email.attach_file('Aplicacion/media/resumenes/2022/' + correo_aux + '.docx')
+
+        
+        email.fail_silently = False
+        
+        try:
+            #email.send()
+            ponencias.update(estado=accion)
+            messages.success(request, 'Correo enviado exitosamente.')
+            
+        except Exception:
+            messages.error(request, 'No se pudo enviar el correo.')
+            if(accion == "2"):
+                return render(request, "home/revisionPonencias.html", {"ponencias":ponencias})
+            elif(accion == "3"):
+                return render(request, "home/aceptarPonencias.html", {"ponencias":ponencias})
+            elif(accion == "4"):
+                return render(request, "home/rechazarPonencias.html", {"ponencias":ponencias})
+        
+    return redirect('listado')
+    
+    
 
 @login_required(login_url="/login")
 def subir(request):

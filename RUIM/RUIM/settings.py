@@ -59,7 +59,6 @@ ROOT_URLCONF = 'RUIM.urls'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = '/login'
 
-import os
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -135,8 +134,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST_USER = "pruebaruim123@gmail.com"
+EMAIL_HOST_PASSWORD = "loovltjkpqekhaum"
 
 # Media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Aplicacion/media')
