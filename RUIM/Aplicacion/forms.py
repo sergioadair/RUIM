@@ -23,5 +23,5 @@ class InputForm(forms.ModelForm):
 
 class AnuncioFields(forms.Form):
 
-    titulo = forms.CharField()
-    cuerpo = forms.CharField(widget=forms.Textarea)
+    titulo = forms.CharField(label='Titulo (obligatorio)')
+    cuerpo = forms.CharField(widget=forms.Textarea, label='Cuerpo (obligatorio)')

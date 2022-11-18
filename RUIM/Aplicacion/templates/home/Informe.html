@@ -10,22 +10,21 @@
      table, th, td{
         border: 1px solid black;
         border-collapse: collapse;
-        margin: 7px;
+        margin: 1px;
         text-align: center;
-        font-size: 13px;
 
      }
     </style>
 </head>
 <body>
-    <table class="table mx-auto container">
+    <table class="table mx-auto container" cellpadding="2">
         <thead>
             <th scope="col">Autores</th>
             <th scope="col">Correo</th>
             <th scope="col">División</th>
             <th scope="col">Titulo</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Asistencia</th>
+            <th scope="col" style="width: 40px;">Tipo</th>
+            <th scope="col" style="width: 60px;">Asistencia</th>
         </thead>
         {% for ponencia in Ponencias %}
             <tr>

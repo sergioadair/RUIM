@@ -10,6 +10,15 @@ from django.conf import settings
 from time import strftime
 
 
+from django.shortcuts import render, HttpResponse
+from io import BytesIO
+from django.http import HttpResponse, FileResponse
+from xhtml2pdf import pisa
+from django.views import View
+from django.template.loader import get_template
+from django.utils.decorators import method_decorator
+
+
 # Create your views here.
 def index(request):
     return render(request, "home/index.html")
@@ -191,10 +200,21 @@ def Mostrar(request):
     Anuncios = Anuncio.objects.all().order_by('-Fecha')
     return render(request, "home/Mostrar.html", {"Anuncios": Anuncios})
 
-@login_required(login_url="/login")
-def Asistencias(request):
-    Ponencias = InputModel.objects.all()
-    return render(request, "home/Informe.html", {"Ponencias": Ponencias})
+
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode()), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+#@login_required(login_url="/login")
+@method_decorator(login_required(login_url="/login"), name='dispatch')
+class pdf(View):
+    def get(self, request, *args, **kwargs):
+        Ponencias = InputModel.objects.all()
+        pdf = render_to_pdf('home/Informe.html', {"Ponencias": Ponencias})
+        return HttpResponse(pdf, content_type='application/pdf')
 
 def solicitarConstancia(request):
     return render(request, "solicitar-constancia.html")
