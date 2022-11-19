@@ -58,12 +58,13 @@ def formularioRegistro(request):
             messages.success(request, 'El registro fue enviado con éxito.')
             
             Asunto = "Registro de ponencia enviado"
-            Mensaje = "Su solicitud para participar como ponente en la RUIM "+strftime("%Y")+" ha sido enviada con éxito. Espere la confirmación en los próximos días.\n\n"
-            Mensaje += "Autores: " + modelo.autores + "\n"
-            Mensaje += "Correo: " + modelo.correo + "\n"
-            Mensaje += "División: " + modelo.division + "\n"
-            Mensaje += "Título: " + modelo.titulo + "\n"
-            Mensaje += "Tipo: " + modelo.tipo + "\n"
+            Mensaje = f'''Su solicitud para participar como ponente en la RUIM {strftime("%Y")} ha sido enviada con éxito. Espere la confirmación en los próximos días.
+            Autores: {modelo.autores}.
+            Correo: {modelo.correo}.
+            División: {modelo.division}.
+            Título: {modelo.titulo}.
+            Tipo: {modelo.tipo}.
+            '''
             Emisor = settings.EMAIL_HOST_USER
             Receptor = modelo.correo
             email = EmailMessage(Asunto, Mensaje, Emisor, [Receptor])
