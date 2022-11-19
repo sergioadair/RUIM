@@ -25,7 +25,7 @@ class Anuncio(models.Model):
 class InputModel(models.Model):
     numAutores = models.IntegerField(choices=numAutores_choices(), default=1)
     autores = models.TextField(default='')
-    correo = models.EmailField(max_length=250)
+    correo = models.EmailField(max_length=250, unique=True)
     division = models.CharField(max_length=250)
     titulo = models.CharField(max_length=250)
     tipo = models.CharField(max_length=250, choices=[('Platica', 'Plática'), ('Poster', 'Póster')], default='')
