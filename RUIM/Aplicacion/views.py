@@ -41,10 +41,6 @@ def Contacto(request):
 def formularioRegistro(request):
     if request.method=='POST' and request.FILES:
         form = InputForm(request.POST, request.FILES)
-        #post = request.POST.copy()
-        #post['numAutores'] = 5
-        #request.POST = post
-        #print(form)
         if form.is_valid() and request.FILES['resumen'].name.endswith('.docx'):
             autores_ = ''
             for i in range(1, int(request.POST['numAutores'])+1) :
@@ -81,14 +77,14 @@ def formularioRegistro(request):
 
             return redirect('Registro')
         else:
+
             if InputModel.objects.filter(correo=request.POST['correo']).exists():
                 messages.error(request, 'El correo ya esta registrado.')
                 correo = ""
             else:
                 messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')
                 correo = form.cleaned_data['correo']
-            #print(form.data.dict())
-            
+
             context = {"form": {
                 'numAutores': form.cleaned_data['numAutores'], 
                 'correo': correo,
@@ -97,6 +93,12 @@ def formularioRegistro(request):
                 'tipo': form.cleaned_data['tipo'],
                 'resumen': form.cleaned_data['resumen']
             }}
+            context["autores"] = {}
+            i=0
+            for a in form.data.dict():
+                if a.startswith('autor'):
+                    i+=1
+                    context["autores"][form.data[a]] = 'autor'+str(i) # Aquí puede ir cualquier dato (solo usamos la llave, no su valor)
             return render(request, "formularioRegistro.html", context)
     context = {}
     context['form'] = InputForm()
