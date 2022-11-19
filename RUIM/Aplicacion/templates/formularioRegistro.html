@@ -43,7 +43,7 @@
                     <div> 
                         <select name="numAutores" onchange="cambiarCampos()" class="select form-control" id="id_numAutores">
                         {% for i in '0123456789'|make_list %}
-                        {% if forloop.counter == 1 %}
+                        {% if form.numAutores|length > 1 and forloop.counter == 1 or form.numAutores == forloop.counter %}
                         <option selected value="{{forloop.counter}}">{{forloop.counter}}</option>
                         {% else %}
                         <option value="{{forloop.counter}}">{{forloop.counter}}</option>
@@ -53,13 +53,16 @@
                     </div> 
                 </div>
                 <div id="div_id_au" class="form-group"> 
+                    {% if form.numAutores|length > 1 %}
                     <label for="id_autor1" class=" requiredField">Autor 1<span class="asteriskField text-danger">*</span> </label> 
                     <div> <input type="text" name="autor1" id="id_autor1" maxlength="250" class="textinput textInput form-control" required=""> </div> 
-                </div>
-                <!--div id="div_id_autores" class="form-group"> 
-                    <label for="id_autores" class=" requiredField">Autores<span class="asteriskField">*</span> </label> 
-                    <div> <textarea name="autores" cols="40" rows="10" class="textarea form-control" required="" id="id_autores"></textarea> </div> 
-                </div-->
+                    {% else %}
+                    {% for a in autores %}
+                    <label for="id_autor{{forloop.counter}}" class=" requiredField">Autor {{forloop.counter}}<span class="asteriskField text-danger">*</span> </label> 
+                    <div> <input type="text" name="autor{{forloop.counter}}" value="{{a}}" id="id_autor{{forloop.counter}}" maxlength="250" class="textinput textInput form-control" required=""> </div> 
+                    {% endfor %}
+                    {% endif %}
+                    </div>
                 <div id="div_id_correo" class="form-group"> 
                     <label for="id_correo" class=" requiredField">Correo del representante<span class="asteriskField text-danger">*</span> </label> 
                     <div> 
