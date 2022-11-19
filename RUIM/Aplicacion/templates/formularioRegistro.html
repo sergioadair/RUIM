@@ -39,7 +39,7 @@
                 <div id="" class="form-group"><br></div>
 
                 <div id="div_id_numAutores" class="form-group"> 
-                    <label for="id_numAutores" class="">Número de Autores</label> 
+                    <label for="id_numAutores" class="">Número de Autores<span class="asteriskField text-danger">*</span></label> 
                     <div> 
                         <select name="numAutores" onchange="cambiarCampos()" class="select form-control" id="id_numAutores">
                         {% for i in '0123456789'|make_list %}
@@ -55,7 +55,7 @@
                 <div id="div_id_au" class="form-group"> 
                     {% if form.numAutores|length > 1 %}
                     <label for="id_autor1" class=" requiredField">Autor 1<span class="asteriskField text-danger">*</span> </label> 
-                    <div> <input type="text" name="autor1" id="id_autor1" maxlength="250" class="textinput textInput form-control" required=""> </div> 
+                    <div> <input type="text" name="autor1" id="id_autor1" placeholder="Escriba el nombre del autor" maxlength="250" class="textinput textInput form-control" required=""> </div> 
                     {% else %}
                     {% for a in autores %}
                     <label for="id_autor{{forloop.counter}}" class=" requiredField">Autor {{forloop.counter}}<span class="asteriskField text-danger">*</span> </label> 
@@ -69,7 +69,7 @@
                         {% if messages %}
                         <input type="email" name="correo" value="{{form.correo}}" maxlength="250" class="emailinput form-control" required="" id="id_correo">
                         {% else %}
-                        <input type="email" name="correo" maxlength="250" class="emailinput form-control" required="" id="id_correo">
+                        <input type="email" name="correo" placeholder="Escriba el correo" maxlength="250" class="emailinput form-control" required="" id="id_correo">
                         {% endif %}
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         {% if messages %}
                         <input type="text" name="division" value="{{form.division}}" maxlength="250" class="textinput textInput form-control" required="" id="id_division">
                         {% else %}
-                        <input type="text" name="division" maxlength="250" class="textinput textInput form-control" required="" id="id_division">
+                        <input type="text" name="division" placeholder="Escriba la división o institución" maxlength="250" class="textinput textInput form-control" required="" id="id_division">
                         {% endif %}
                     </div> 
                 </div>
@@ -89,7 +89,7 @@
                         {% if messages %}
                         <input type="text" name="titulo" value="{{form.titulo}}" maxlength="250" class="textinput textInput form-control" required="" id="id_titulo">
                         {% else %}
-                        <input type="text" name="titulo" maxlength="250" class="textinput textInput form-control" required="" id="id_titulo">
+                        <input type="text" name="titulo" placeholder="Escriba el título del trabajo" maxlength="250" class="textinput textInput form-control" required="" id="id_titulo">
                         {% endif %}
                     </div> 
                 </div>

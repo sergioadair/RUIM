@@ -23,6 +23,7 @@ function addrows (tablebody, n) {
         input.setAttribute("type", "text");
         input.setAttribute("name", "autor"+(i+1));
         input.setAttribute("id", "id_autor"+(i+1));
+        input.setAttribute("placeholder", "Escriba el nombre del autor");
         input.setAttribute("maxlength", "250");
         input.setAttribute("class", "textinput textInput form-control");
         input.setAttribute("required", "");
