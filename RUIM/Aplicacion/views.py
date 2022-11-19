@@ -70,7 +70,7 @@ def formularioRegistro(request):
             email.content_subtype='html'
             email.attach_file('Aplicacion/media/' + modelo.resumen.name)
             try:
-                #email.send()
+                email.send()
                 messages.success(request, 'La información de registro fue enviada al correo especificado.')
             except Exception:
                 messages.error(request, 'No se le harán llegar al correo sus respuestas del formulario.')
@@ -80,7 +80,7 @@ def formularioRegistro(request):
 
             if InputModel.objects.filter(correo=request.POST['correo']).exists():
                 messages.error(request, 'El correo ya esta registrado.')
-                correo = ""
+                correo = form.data['correo']
             else:
                 messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')
                 correo = form.cleaned_data['correo']
