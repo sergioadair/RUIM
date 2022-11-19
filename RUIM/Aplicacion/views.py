@@ -74,18 +74,24 @@ def formularioRegistro(request):
             email.content_subtype='html'
             email.attach_file('Aplicacion/media/' + modelo.resumen.name)
             try:
-                email.send()
+                #email.send()
                 messages.success(request, 'La información de registro fue enviada al correo especificado.')
             except Exception:
                 messages.error(request, 'No se le harán llegar al correo sus respuestas del formulario.')
 
             return redirect('Registro')
         else:
-            messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')
+            if InputModel.objects.filter(correo=request.POST['correo']).exists():
+                messages.error(request, 'El correo ya esta registrado.')
+                correo = ""
+            else:
+                messages.error(request, 'La información o el archivo que intenta enviar no son válidos. Por favor revise.')
+                correo = form.cleaned_data['correo']
             #print(form.data.dict())
+            
             context = {"form": {
                 'numAutores': form.cleaned_data['numAutores'], 
-                'correo': form.cleaned_data['correo'], 
+                'correo': correo,
                 'division': form.cleaned_data['division'], 
                 'titulo': form.cleaned_data['titulo'], 
                 'tipo': form.cleaned_data['tipo'],
