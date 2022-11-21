@@ -18,6 +18,9 @@
             <td><h1>Anuncio {{anuncio.id}}</h1>{{anuncio.Fecha}}<br>
                 <big>{{anuncio.Titulo}}</big><br> 
                 {{anuncio.Cuerpo}}<br>
+                {% if user.is_superuser %}
+                <a href="{% url 'eliminar' anuncio_id=anuncio.id %}">Eliminar</a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

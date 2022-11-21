@@ -14,6 +14,7 @@ urlpatterns = [
     path('login/seleccion/mensaje/', views.Correo_Estado, name='mensaje'),
     path('FormNoticias/', views.subir, name="post"),
     path('Noticias/', views.Mostrar, name="mostrar"),
+    path('eliminar/<int:anuncio_id>/', views.eliminar, name="eliminar"),
     path('informe/', views.pdf.as_view(), name="informe"),
     path('solicitar-constancia/', views.solicitarConstancia),
     path('send_email/', views.send_email),
