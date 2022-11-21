@@ -205,6 +205,12 @@ def subir(request):
 
     return render(request, "home/Form.html", {"form":Form})
 
+
+def eliminar(request, anuncio_id):
+    anuncio = Anuncio.objects.get(id=anuncio_id)
+    anuncio.delete()
+    return redirect("mostrar")
+
 def Mostrar(request):
     Anuncios = Anuncio.objects.all().order_by('-Fecha')
     return render(request, "home/Mostrar.html", {"Anuncios": Anuncios})
