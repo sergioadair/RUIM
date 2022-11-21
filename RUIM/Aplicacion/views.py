@@ -448,10 +448,10 @@ def generar_PDF(participante):
     qr_code = Image.open('Aplicacion/media/static/images/'+correo_aux+'qr.png')
     b = ImageDraw.Draw(qr_code)
     text_color = (0, 0, 0)
-    font = ImageFont.truetype("arial.ttf", 50)
+    font = ImageFont.truetype("arial.ttf", 15)
     text = "http://127.0.0.1:8000/buscar/"
-    d.text((0, 0), text, fill=text_color, font=font)
     im.paste(qr_code, (860, 1155))
+    d.text((910, 1180), text, fill=text_color, font=font)
     im.save("Aplicacion/certificados/certificate_"+correo_aux+".pdf")
 
 def buscar(request):
