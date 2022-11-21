@@ -217,11 +217,12 @@ def render_to_pdf(template_src, context_dict={}):
     pdf = pisa.pisaDocument(BytesIO(html.encode()), result)
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type='application/pdf')
-#@login_required(login_url="/login")
+
+
 @method_decorator(login_required(login_url="/login"), name='dispatch')
 class pdf(View):
     def get(self, request, *args, **kwargs):
-        Ponencias = InputModel.objects.all()
+        Ponencias = InputModel.objects.all().filter(estado=3)
         pdf = render_to_pdf('home/Informe.html', {"Ponencias": Ponencias})
         return HttpResponse(pdf, content_type='application/pdf')
 
