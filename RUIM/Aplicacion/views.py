@@ -168,7 +168,7 @@ def Correo_Estado(request):
         email.fail_silently = False
         
         try:
-            #email.send()
+            email.send()
             ponencias.update(estado=accion)
             messages.success(request, 'Correo enviado exitosamente.')
             
