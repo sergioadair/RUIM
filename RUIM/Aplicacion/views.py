@@ -17,6 +17,7 @@ from xhtml2pdf import pisa
 from django.views import View
 from django.template.loader import get_template
 from django.utils.decorators import method_decorator
+from django.template import Context, Template
 
 
 # Create your views here.
@@ -125,7 +126,7 @@ def seleccionPonencias(request):
                 return render(request, "home/revisionPonencias.html", {"ponencias":ponencias})
             elif(accion == "aceptar"):
                 return render(request, "home/aceptarPonencias.html", {"ponencias":ponencias})
-            else:
+            elif(accion == "rechazar"):
                 return render(request, "home/rechazarPonencias.html", {"ponencias":ponencias})
         
     return redirect('listado')
@@ -139,37 +140,52 @@ def Correo_Estado(request):
         ponencias = InputModel.objects.filter(correo__in=correos)
         accion = request.POST.get("accion")
         
-        #correos = ponencias.values_list('correo', flat=True)
-        
         
         asunto = request.POST['asunto']
-        mensaje = request.POST['mensaje']
+        mensaje = request.POST['mensaje'] 
         emisor = settings.EMAIL_HOST_USER
         
         
-        if accion != "2":
-            receptor = correos
-            
-            email = EmailMessage(asunto, mensaje, emisor, receptor)
-        else:
-            receptor = ['valenz_eric@hotmail.com'] #Correo de quien tenga que revisar las ponencias
-            
-            email = EmailMessage(asunto, mensaje, emisor, receptor)
-            
-            for correo in correos:
-                correo_aux = ""
-                for i in range(len(correo)):
-                    if correo[i] != "@":
-                        correo_aux += correo[i]
+        
+        
+        try:    
+            if accion != "2":
+                template = Template(mensaje)
+                for ponencia in ponencias:
+                    context = Context({
+                        'autores': ponencia.autores,
+                        'titulo': ponencia.titulo,
+                        'correo': ponencia.correo,
+                        'division': ponencia.division,
+                        'tipo': ponencia.tipo
+                        })
+                    receptor = ponencia.correo
+                    mensaje_HTML = template.render(context)
+                    email = EmailMessage(asunto, mensaje_HTML, emisor, [receptor])
+                    email.content_subtype = "html"
+                    email.fail_silently = False
+                    email.send()
+                    ponencia.estado = accion
+                    ponencia.save()
+                
+            else:
+                receptor = 'valenz_eric@hotmail.com' #Correo de quien tenga que revisar las ponencias
+                
+                email = EmailMessage(asunto, mensaje, emisor, [receptor])
+                
+                for correo in correos:
+                    correo_aux = ""
+                    for i in range(len(correo)):
+                        if correo[i] != "@":
+                            correo_aux += correo[i]
+                        
+                    email.attach_file('Aplicacion/media/resumenes/2022/' + correo_aux + '.docx')
                     
-                email.attach_file('Aplicacion/media/resumenes/2022/' + correo_aux + '.docx')
-
+                email.fail_silently = False
+                email.send()
+                ponencias.update(estado=accion)
         
-        email.fail_silently = False
         
-        try:
-            email.send()
-            ponencias.update(estado=accion)
             messages.success(request, 'Correo enviado exitosamente.')
             
         except Exception:
@@ -180,7 +196,7 @@ def Correo_Estado(request):
                 return render(request, "home/aceptarPonencias.html", {"ponencias":ponencias})
             elif(accion == "4"):
                 return render(request, "home/rechazarPonencias.html", {"ponencias":ponencias})
-        
+    
     return redirect('listado')
     
     

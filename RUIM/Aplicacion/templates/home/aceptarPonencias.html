@@ -49,8 +49,21 @@
     <h4>Asunto</h4>
     <input class="form-control" type="text" placeholder="Titulo del correo para los aceptados" value="Tu ponencia fue aceptada" name="asunto" required>
     <h4>Contenido del correo</h4>
-    <textarea class="form-control" rows="5" placeholder="Mensaje que recibiran los ponentes que se presentaran en la RUIM." name="mensaje" required>Felicidades. Tu ponencia fue aceptada y la presentaras en la próxima Reunión Universitaria de Investigación en Materiales (RUIM) 2022.
-    Atentamente: Coordinación RUIM.</textarea>
+    <div class="alert alert-warning" role="alert">
+        <strong>Nota:</strong> El contenido del mensaje se escribe en forma de pagina HTML y se reflrja en el cuerpo del correo de forma normal.
+        Se pueden utilizar etiquetas HTML como <strong>&lt;strong></strong> para resaltar el contenido del mensaje y se utilizan etiquetas de django para reflejar los individuales de la respectiva ponencia
+        <ul>
+            <li><strong>&#123;{autores}}</strong>   -> Se muestran todos los autores de la ponencia</li>
+            <li><strong>&#123;{titulo}}</strong>    -> muestra el titulo de la ponencia</li>
+            <li><strong>&#123;{correo}}</strong>    -> Muestra el correo del ponente</li>
+            <li><strong>&#123;{division}}</strong>  -> Muestra la division del ponente</li>
+            <li><strong>&#123;{tipo}}</strong>      -> muestra el tipo de presentacion (Platica/Ponencia)</li>
+        </ul>
+    </div>
+    <textarea class="form-control" rows="8" placeholder="Mensaje que recibiran los ponentes que se presentaran en la RUIM." name="mensaje" required>
+Felicidades. Nos comunicamos a este correo <strong>&#123;{ correo }}</strong>, para informarle a <strong>&#123;{ autores }}</strong> que su <strong>&#123;{ tipo }}</strong> de <strong>&#123;{ titulo }}</strong> de la division de <strong>&#123;{ division }}</strong>, fue <strong>aceptada</strong> y será presentada en la próxima Reunión Universitaria de Investigación en Materiales (RUIM) 2022.
+<br>Atentamente: Coordinación RUIM.</textarea>
+    
     <br>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <a class="btn btn-secondary" href="{% url 'listado' %}" role="button">Cancelar</a>
